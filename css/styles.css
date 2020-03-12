@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono&display=swap');
+
+#homelearning {
+    font-family: 'Roboto', sans-serif;
+    font-size: larger;
+}
+
+#homelearning a {
+    color: dodgerblue;
+    text-decoration: none;
+}
+
+#homelearning ul {
+    list-style-type: none;
+}
+
+#homelearning .fa-folder-open {
+    color: slategray;
+}
+
+#homelearning .fa-file-pdf {
+    color: darkgray;
+}
+
+#sha {
+    background-color: #f1f8ff;
+    border-radius: 3px;
+    border: 1px #0366d6 solid;
+    font-family: 'Roboto Mono', monospace;
+
+    padding: 16px;
+}
+
+#shabad {
+    background-color: #ffdce0;
+    border-radius: 3px;
+    border: 1px #d73a49 solid;
+    font-family: 'Roboto Mono', monospace;
+
+    padding: 16px;
+}
