@@ -18,7 +18,7 @@ function generateHierarchy(hierarchy, current) {
 
     // Display files.
     hierarchy.files.forEach(function(file) {
-        current += '<li><i class="fa fa-file-pdf" aria-hidden="true"></i> <a href="https://woacademy.github.io/home-learning/' + encodeURI(file.filepath) + '">' + file.filename + '</a>' + '</li>';
+        current += '<li><i class="fa fa-file-pdf" aria-hidden="true"></i> <a href="https://woacademy.github.io/home-learning/Resources/' + encodeURI(file.filepath) + '">' + file.filename + '</a>' + '</li>';
     });
 
     // Recursively display folders.
