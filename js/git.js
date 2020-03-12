@@ -63,8 +63,7 @@ function displayInfo(sha, extra) {
 
             fetchHierarchy(sha);
         } else {
-            document.getElementById('homelearning').innerHTML += '<div id="shabad"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> home-learning@' + sha + '<br>'
-                + '<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> Resources have recently been synced, please allow up to 5 minutes for them to be displayed below. (l=' + rateLimitJSON.resources.core.remaining + ';r=' + (rateLimitJSON.resources.core.reset - Math.round(+new Date() / 1000)) + ';t=' + Math.round((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 1000) + ')</div><br>';
+            document.getElementById('homelearning').innerHTML += '<div id="shabad"><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> Resources have recently been synced, please allow up to 5 minutes for them to be displayed below. (l=' + rateLimitJSON.resources.core.remaining + ';r=' + (rateLimitJSON.resources.core.reset - Math.round(+new Date() / 1000)) + ';t=' + Math.round((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 1000) + ')</div><br>';
         }
     }
 }
