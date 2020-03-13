@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Generate a basic index.html containing a file hierarchy.
+# Generate a JSON file representing the resources hierarchy.
 
-# Use file directory rather than working directory.
+# Operate from the script's directory rather than cwd.
 PARENT_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")"; pwd -P)
-cd "$PARENT_PATH"
+cd "${PARENT_PATH}/.."
 
 # Don't expand null globs.
 shopt -s nullglob
@@ -53,8 +53,8 @@ function scan_dir() {
 
 # Create a blank JSON string and start the scan.
 json=''
-scan_dir '../Resources'
+scan_dir 'Resources'
 
 # Trim and output to hierarchy.json
 remove_trailing_comma
-echo "$json" > "../hierarchy.json"
+echo "$json" > "./hierarchy.json"

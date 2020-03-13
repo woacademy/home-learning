@@ -18,7 +18,7 @@ function generateHierarchy(hierarchy, current) {
 
     // Display files.
     hierarchy.files.forEach(function(file) {
-        current += '<li><i class="fa fa-file-pdf" aria-hidden="true"></i> <a href="https://woacademy.github.io/home-learning/Resources/' + encodeURI(file.filepath) + '">' + file.filename + '</a>' + '</li>';
+        current += '<li><i class="fa fa-file-pdf" aria-hidden="true"></i> <a href="https://woacademy.github.io/' + GITHUB_REPO + '/' + encodeURI(file.filepath) + '">' + file.filename + '</a>' + '</li>';
     });
 
     // Recursively display folders.
@@ -41,7 +41,7 @@ function fetchHierarchy(sha) {
     request.send();
     request.onload = function() {
             var hierarchy = generateHierarchy(JSON.parse(request.responseText), '');
-            document.getElementById('homelearning').innerHTML += '<ul>' + hierarchy + '</ul>';
+            document.getElementById(GITHUB_REPO).innerHTML += '<ul>' + hierarchy + '</ul>';
     };
 }
 
@@ -63,7 +63,7 @@ function displayInfo(sha, extra) {
 
             fetchHierarchy(sha);
         } else {
-            document.getElementById('homelearning').innerHTML += '<div id="shabad"><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> Resources have recently been synced, please allow up to 5 minutes for them to be displayed below. (l=' + rateLimitJSON.resources.core.remaining + ';r=' + (rateLimitJSON.resources.core.reset - Math.round(+new Date() / 1000)) + ';t=' + Math.round((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 1000) + ')</div><br>';
+            document.getElementById(GITHUB_REPO).innerHTML += '<div id="shabad"><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> Resources have recently been synced, please allow up to 5 minutes for them to be displayed below. (l=' + rateLimitJSON.resources.core.remaining + ';r=' + (rateLimitJSON.resources.core.reset - Math.round(+new Date() / 1000)) + ';t=' + Math.round((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 1000) + ')</div><br>';
         }
     }
 }
