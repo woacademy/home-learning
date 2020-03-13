@@ -4,5 +4,9 @@
 PARENT_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")"; pwd -P)
 cd "$PARENT_PATH"
 
+# User.
+git config user.name woacademy
+git config user.email 36260671+woacademy@users.noreply.github.com
+
 # Use a PAT to authentica with git.
 git remote set-url origin https://woacademy:${LEONA_PAT}@github.com/woacademy/home-learning.git
