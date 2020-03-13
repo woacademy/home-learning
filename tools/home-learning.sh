@@ -6,7 +6,11 @@ cd "$PARENT_PATH"
 
 # Update the Resources folder.
 rm -rf '../Resources'
-./rclone.exe copy homelearning: '../Resources'
+if ! [ -x "$(command -v rclone)" ]; then
+    ./rclone.exe copy homelearning: '../Resources'
+else
+    rclone copy homelearning: '../Resources'
+fi
 
 # Regenerate the hierarchy.
 bash ./generate_hierarchy.sh
