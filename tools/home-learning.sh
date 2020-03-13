@@ -12,6 +12,7 @@ rm -rf '../Resources'
 bash ./generate_hierarchy.sh
 
 # Push any changes to git.
+git pull
 git add '../.'
 git commit -m "`date`"
 git push
