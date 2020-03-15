@@ -37,11 +37,11 @@ function generateHierarchy(hierarchy, current) {
  */
 function fetchHierarchy(sha) {
     var request = new XMLHttpRequest();
-    request.open('GET', 'https://raw.githubusercontent.com/' + GITHUB_USER +  '/' + GITHUB_REPO + '/' + sha + '/hierarchy.json');
+    request.open('GET', 'https://raw.githubusercontent.com/' + GITHUB_USER +  '/' + GITHUB_REPO + '/' + sha + '/tree.html');
     request.send();
     request.onload = function() {
-            var hierarchy = generateHierarchy(JSON.parse(request.responseText), '');
-            document.getElementById(GITHUB_REPO).innerHTML += '<ul>' + hierarchy + '</ul>';
+            //var hierarchy = generateHierarchy(JSON.parse(request.responseText), '');
+            document.getElementById(GITHUB_REPO).innerHTML += '<pre>' + request.responseText + '</pre>';
     };
 }
 
@@ -58,7 +58,7 @@ function displayInfo(sha, extra) {
         var rateLimitJSON = JSON.parse(rateLimit.responseText);
 
         if (sha == 'master' || Math.round((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 1000) > 300) {
-            document.getElementById('homelearning').innerHTML += '<div id="sha"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> home-learning@' + sha + '<br>'
+            document.getElementById(GITHUB_REPO).innerHTML += '<div id="sha"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> home-learning@' + sha + '<br>'
                 + '<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> l=' + rateLimitJSON.resources.core.remaining + ';r=' + (rateLimitJSON.resources.core.reset - Math.round(+new Date() / 1000)) + '</div><br>';
 
             fetchHierarchy(sha);

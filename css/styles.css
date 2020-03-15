@@ -1,24 +1,28 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono&display=swap');
 
-#homelearning {
+#home-learning {
     font-family: 'Roboto', sans-serif;
     font-size: larger;
 }
 
-#homelearning a {
+#home-learning a {
     color: dodgerblue;
     text-decoration: none;
 }
 
-#homelearning ul {
+#home-learning pre {
+    white-space: normal;
+}
+
+#home-learning ul {
     list-style-type: none;
 }
 
-#homelearning .fa-folder-open {
+#home-learning .fa-folder-open {
     color: slategray;
 }
 
-#homelearning .fa-file-pdf {
+#home-learning .fa-file-pdf {
     color: darkgray;
 }
 
