@@ -16,6 +16,9 @@ fi
 # Regenerate the resources hierarchy.
 bash ./generate_hierarchy.sh
 
+# Alternative hierarchy layout using tree.
+tree -H "" ../Resources > ../tree.html
+
 # Update git.
 git pull
 git add '../.'
