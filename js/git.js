@@ -10,24 +10,28 @@ const GITHUB_REPO = 'home-learning';
 /**
  * Generate the file hierarchy.
  * 
- * @param {Object} hierarchy JSON Object representing a level of the file hierarchy.
- * @param {String} current The current hierarchy HTML.
+ * @param {Object} hierarchy HTML string representing the file hierarchy.
  */
-function generateHierarchy(hierarchy, current) {
-    current += '<li><i class="fa fa-folder-open" aria-hidden="true"></i> <strong>' + hierarchy.dirname + '</strong><ul>';
+function formatHierarchy(hierarchy) {
+    var hierarchyElement = document.createElement('pre');
+    hierarchyElement.innerHTML = hierarchy;
 
-    // Display files.
-    hierarchy.files.forEach(function(file) {
-        current += '<li><i class="fa fa-file-pdf" aria-hidden="true"></i> <a href="https://woacademy.github.io/' + GITHUB_REPO + '/' + encodeURI(file.filepath) + '">' + file.filename + '</a>' + '</li>';
+    // Remove directory anchors.
+    var anchors = hierarchyElement.getElementsByTagName('a');
+    Array.prototype.forEach.call(anchors, function(anchor) {
+        console.log(anchor.href);
+        if (/\/$/.test(anchor.href)) {
+            console.log(anchor.innerHTML);
+            var replacement = document.createElement('span');
+            replacement.innerHTML = '<strong>' + anchor.innerHTML + '</strong>';
+
+            anchor.parentNode.replaceChild(replacement, anchor);
+        } else {
+            //console.log(anchor.href);
+        }
     });
 
-    // Recursively display folders.
-    hierarchy.dirs.forEach(function(dir) {
-        current += generateHierarchy(dir, '');
-    });
-
-    current += '</ul></li>';
-    return current;
+    return hierarchyElement.outerHTML;
 }
 
 /**
@@ -40,8 +44,8 @@ function fetchHierarchy(sha) {
     request.open('GET', 'https://raw.githubusercontent.com/' + GITHUB_USER +  '/' + GITHUB_REPO + '/' + sha + '/tree.html');
     request.send();
     request.onload = function() {
-            //var hierarchy = generateHierarchy(JSON.parse(request.responseText), '');
-            document.getElementById(GITHUB_REPO).innerHTML += '<pre>' + request.responseText + '</pre>';
+            var hierarchy = formatHierarchy(request.responseText);
+            document.getElementById(GITHUB_REPO).innerHTML += hierarchy;
     };
 }
 
