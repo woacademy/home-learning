@@ -11,7 +11,8 @@
 }
 
 #home-learning pre {
-    white-space: normal;
+    font-family: monospace;
+    white-space: nowrap;
 }
 
 #home-learning ul {

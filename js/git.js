@@ -57,7 +57,7 @@ function displayInfo(sha, extra) {
     rateLimit.onload = function() {
         var rateLimitJSON = JSON.parse(rateLimit.responseText);
 
-        if (sha == 'master' || Math.round((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 1000) > 300) {
+        if (sha == 'master' || Math.round((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 1000) > 30) {
             document.getElementById(GITHUB_REPO).innerHTML += '<div id="sha"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> home-learning@' + sha + '<br>'
                 + '<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> l=' + rateLimitJSON.resources.core.remaining + ';r=' + (rateLimitJSON.resources.core.reset - Math.round(+new Date() / 1000)) + '</div><br>';
 
