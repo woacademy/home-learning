@@ -16,19 +16,32 @@ function formatHierarchy(hierarchy) {
     var hierarchyElement = document.createElement('pre');
     hierarchyElement.innerHTML = hierarchy;
 
-    // Remove directory anchors.
-    var anchors = hierarchyElement.getElementsByTagName('a');
-    Array.prototype.forEach.call(anchors, function(anchor) {
-        console.log(anchor.href);
-        if (/\/$/.test(anchor.href)) {
-            console.log(anchor.innerHTML);
-            var replacement = document.createElement('span');
-            replacement.innerHTML = '<strong>' + anchor.innerHTML + '</strong>';
+    // Remove directory anchors (TODO: this is really bad...)
+    var hold = true;
+    while (hold) {
+        var changed = false;
+        var anchors = hierarchyElement.getElementsByTagName('a');
+        Array.prototype.forEach.call(anchors, function(anchor) {
+            console.log(anchor.href);
+            if (/\/$/.test(anchor.href)) {
+                console.log(anchor.innerHTML);
+                var replacement = document.createElement('span');
+                replacement.innerHTML = '<strong>' + anchor.innerHTML + '</strong>';
 
-            anchor.parentNode.replaceChild(replacement, anchor);
-        } else {
-            //console.log(anchor.href);
-        }
+                anchor.parentNode.replaceChild(replacement, anchor);
+                changed = true;
+                return;
+            }
+        });
+
+        if (!changed)
+            hold = false;
+    }
+
+    // Fix file anchors.
+    var files = hierarchyElement.getElementsByTagName('a');
+    Array.prototype.forEach.call(anchors, function(anchor) {
+        anchor.href = 'https://woacademy.github.io/home-learning/Resources/' + anchor.href.slice(8);
     });
 
     return hierarchyElement.outerHTML;
@@ -61,13 +74,14 @@ function displayInfo(sha, extra) {
     rateLimit.onload = function() {
         var rateLimitJSON = JSON.parse(rateLimit.responseText);
 
-        if (sha == 'master' || Math.round((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 1000) > 30) {
-            document.getElementById(GITHUB_REPO).innerHTML += '<div id="sha"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> home-learning@' + sha + '<br>'
-                + '<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> l=' + rateLimitJSON.resources.core.remaining + ';r=' + (rateLimitJSON.resources.core.reset - Math.round(+new Date() / 1000)) + '</div><br>';
+        if (sha == 'master' || Math.round((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 1000) > 300) {
+            document.getElementById(GITHUB_REPO).innerHTML += '<div id="sha"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Home Learning resources can be found below, they are updated once an hour on the hour.<br>'
+                + '<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> Current version: ' + sha + ' (l=' + rateLimitJSON.resources.core.remaining + ';r=' + (rateLimitJSON.resources.core.reset - Math.round(+new Date() / 1000)) + ')</div><br>';
 
             fetchHierarchy(sha);
         } else {
-            document.getElementById(GITHUB_REPO).innerHTML += '<div id="shabad"><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> Resources have recently been synced, please allow up to 5 minutes for them to be displayed below. (l=' + rateLimitJSON.resources.core.remaining + ';r=' + (rateLimitJSON.resources.core.reset - Math.round(+new Date() / 1000)) + ';t=' + Math.round((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 1000) + ')</div><br>';
+            document.getElementById(GITHUB_REPO).innerHTML += '<div id="shabad"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Resources have recently been synced, please wait another ' + Math.round(((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 60000) * 100) / 100 + ' minutes for them to be displayed below.<br>'
+                + '<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> Current version: ' + sha + ' (l=' + rateLimitJSON.resources.core.remaining + ';r=' + (rateLimitJSON.resources.core.reset - Math.round(+new Date() / 1000)) + ')</div><br>';
         }
     }
 }
