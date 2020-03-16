@@ -54,12 +54,20 @@ function formatHierarchy(hierarchy) {
  * @param {String} sha SHA of the GitHub revision to fetch.
  */
 function fetchHierarchy(sha) {
-    var request = new XMLHttpRequest();
-    request.open('GET', 'https://raw.githubusercontent.com/' + GITHUB_USER +  '/' + GITHUB_REPO + '/' + sha + '/tree.html');
-    request.send();
-    request.onload = function() {
-            var hierarchy = formatHierarchy(request.responseText);
-            document.getElementById(GITHUB_REPO).innerHTML += hierarchy;
+    var ks3 = new XMLHttpRequest();
+    ks3.open('GET', 'https://raw.githubusercontent.com/' + GITHUB_USER +  '/' + GITHUB_REPO + '/' + sha + '/treeks3.html');
+    ks3.send();
+    ks3.onload = function() {
+            var ks3hierarchy = formatHierarchy(ks3.responseText);
+            document.getElementById(GITHUB_REPO).innerHTML += ks3hierarchy + '<br><hr><br>';
+			
+			var ks4 = new XMLHttpRequest();
+			ks4.open('GET', 'https://raw.githubusercontent.com/' + GITHUB_USER +  '/' + GITHUB_REPO + '/' + sha + '/treeks4.html');
+			ks4.send();
+			ks4.onload = function() {
+				var ks4hierarchy = formatHierarchy(ks4.responseText);
+				document.getElementById(GITHUB_REPO).innerHTML += ks4hierarchy;
+			};
     };
 }
 
