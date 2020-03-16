@@ -42,6 +42,7 @@ function formatHierarchy(hierarchy) {
     var files = hierarchyElement.getElementsByTagName('a');
     Array.prototype.forEach.call(anchors, function(anchor) {
         anchor.href = 'https://woacademy.github.io/home-learning/Resources/' + anchor.href.slice(8);
+        anchor.innerHTML = '<em>' + anchor.innerHTML + '</em>';
     });
 
     return hierarchyElement.outerHTML;
