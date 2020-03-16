@@ -59,14 +59,14 @@ function fetchHierarchy(sha) {
     ks3.send();
     ks3.onload = function() {
             var ks3hierarchy = formatHierarchy(ks3.responseText);
-            document.getElementById(GITHUB_REPO).innerHTML += ks3hierarchy + '<br><hr><br>';
+            document.getElementById(GITHUB_REPO).innerHTML += '<h2>KS3</h2><br>' + ks3hierarchy + '<br><hr><br>';
 			
 			var ks4 = new XMLHttpRequest();
 			ks4.open('GET', 'https://raw.githubusercontent.com/' + GITHUB_USER +  '/' + GITHUB_REPO + '/' + sha + '/treeks4.html');
 			ks4.send();
 			ks4.onload = function() {
 				var ks4hierarchy = formatHierarchy(ks4.responseText);
-				document.getElementById(GITHUB_REPO).innerHTML += ks4hierarchy;
+				document.getElementById(GITHUB_REPO).innerHTML += '<h2>KS4</h2><br>' + ks4hierarchy;
 			};
     };
 }
