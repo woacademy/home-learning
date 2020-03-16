@@ -21,9 +21,11 @@ bash ./generate_hierarchy.sh
 
 # Alternative hierarchy layout using tree, GNU grep on macOS is ggrep.
 if [ -x "$(command -v ggrep)" ]; then
-	tree -H "" '../Resources' | ggrep -Pzo '(?s)<a.*<\/a><br>' > ../tree.html
+	tree -H "" '../Resources/KS3' | ggrep -Pzo '(?s)<a.*<\/a><br>' > ../treeks3.html
+	tree -H "" '../Resources/KS4' | ggrep -Pzo '(?s)<a.*<\/a><br>' > ../treeks4.html
 else
-	tree -H "" '../Resources' | grep -Pzo '(?s)<a.*<\/a><br>' > ../tree.html
+	tree -H "" '../Resources/KS3' | grep -Pzo '(?s)<a.*<\/a><br>' > ../treeks3.html
+	tree -H "" '../Resources/KS4' | grep -Pzo '(?s)<a.*<\/a><br>' > ../treeks4.html
 fi
 
 # Update git remote.
