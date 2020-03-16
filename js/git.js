@@ -52,21 +52,21 @@ function formatHierarchy(hierarchy, parentdir) {
 /**
  * Fetch a specified version of the file hierarchy from GitHub.
  * 
- * @param {String} sha SHA of the GitHub revision to fetch.
+ * @param {String} sha SHA of the GitHub revision to fetch.s
  */
 function fetchHierarchy(sha) {
     var ks3 = new XMLHttpRequest();
     ks3.open('GET', 'https://raw.githubusercontent.com/' + GITHUB_USER +  '/' + GITHUB_REPO + '/' + sha + '/treeks3.html');
     ks3.send();
     ks3.onload = function() {
-            var ks3hierarchy = formatHierarchy(ks3.responseText, 'ks3/');
+            var ks3hierarchy = formatHierarchy(ks3.responseText, 'KS3/');
             document.getElementById(GITHUB_REPO).innerHTML += '<h2>KS3</h2><br>' + ks3hierarchy + '<br><hr><br>';
 			
 			var ks4 = new XMLHttpRequest();
 			ks4.open('GET', 'https://raw.githubusercontent.com/' + GITHUB_USER +  '/' + GITHUB_REPO + '/' + sha + '/treeks4.html');
 			ks4.send();
 			ks4.onload = function() {
-				var ks4hierarchy = formatHierarchy(ks4.responseText, 'ks4/');
+				var ks4hierarchy = formatHierarchy(ks4.responseText, 'KS4/');
 				document.getElementById(GITHUB_REPO).innerHTML += '<h2>KS4</h2><br>' + ks4hierarchy;
 			};
     };
