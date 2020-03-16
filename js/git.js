@@ -11,8 +11,9 @@ const GITHUB_REPO = 'home-learning';
  * Generate the file hierarchy.
  * 
  * @param {Object} hierarchy HTML string representing the file hierarchy.
+ * @param {String} Parent directory to use when constructing anchor href.
  */
-function formatHierarchy(hierarchy) {
+function formatHierarchy(hierarchy, parentdir) {
     var hierarchyElement = document.createElement('pre');
     hierarchyElement.innerHTML = hierarchy;
 
@@ -41,7 +42,7 @@ function formatHierarchy(hierarchy) {
     // Fix file anchors.
     var files = hierarchyElement.getElementsByTagName('a');
     Array.prototype.forEach.call(anchors, function(anchor) {
-        anchor.href = 'https://woacademy.github.io/home-learning/Resources/' + anchor.href.slice(8);
+        anchor.href = 'https://woacademy.github.io/home-learning/Resources/' + parentdir + anchor.href.slice(27);
         anchor.innerHTML = '<em>' + anchor.innerHTML + '</em>';
     });
 
@@ -58,14 +59,14 @@ function fetchHierarchy(sha) {
     ks3.open('GET', 'https://raw.githubusercontent.com/' + GITHUB_USER +  '/' + GITHUB_REPO + '/' + sha + '/treeks3.html');
     ks3.send();
     ks3.onload = function() {
-            var ks3hierarchy = formatHierarchy(ks3.responseText);
+            var ks3hierarchy = formatHierarchy(ks3.responseText, 'ks3/');
             document.getElementById(GITHUB_REPO).innerHTML += '<h2>KS3</h2><br>' + ks3hierarchy + '<br><hr><br>';
 			
 			var ks4 = new XMLHttpRequest();
 			ks4.open('GET', 'https://raw.githubusercontent.com/' + GITHUB_USER +  '/' + GITHUB_REPO + '/' + sha + '/treeks4.html');
 			ks4.send();
 			ks4.onload = function() {
-				var ks4hierarchy = formatHierarchy(ks4.responseText);
+				var ks4hierarchy = formatHierarchy(ks4.responseText, 'ks4/');
 				document.getElementById(GITHUB_REPO).innerHTML += '<h2>KS4</h2><br>' + ks4hierarchy;
 			};
     };
