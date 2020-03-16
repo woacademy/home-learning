@@ -13,6 +13,7 @@
 #home-learning pre {
     font-family: monospace;
     white-space: nowrap;
+    line-height: 1.19em;
 }
 
 #home-learning ul {
