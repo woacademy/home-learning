@@ -89,7 +89,7 @@ function displayInfo(sha, extra) {
 
             fetchHierarchy(sha);
         } else {
-            document.getElementById(GITHUB_REPO).innerHTML += '<div id="shabad"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Resources have recently been synced, please wait another ' + (5 - (Math.round(((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 60000) * 100) / 100)) + ' minutes for them to be displayed below.<br>'
+            document.getElementById(GITHUB_REPO).innerHTML += '<div id="shabad"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Resources have recently been synced, please wait another ' + (Math.round((5 - ((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 60000)) * 100) / 100) + ' minutes for them to be displayed below.<br>'
                 + '<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> Current version: ' + sha + ' (l=' + rateLimitJSON.resources.core.remaining + ';r=' + (rateLimitJSON.resources.core.reset - Math.round(+new Date() / 1000)) + ')</div><br>';
         }
     }
