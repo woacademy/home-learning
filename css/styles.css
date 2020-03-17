@@ -45,3 +45,31 @@
 
     padding: 16px;
 }
+
+@keyframes breatheAnimation {
+    0%   { opacity: 1; }
+    20%  { opacity: 0; }
+    40%  { opacity: 1; }
+}
+@-o-keyframes breatheAnimation {
+    0%   { opacity: 1; }
+    20%  { opacity: 0; }
+    40%  { opacity: 1; }
+}
+@-moz-keyframes breatheAnimation {
+    0%   { opacity: 1; }
+    20%  { opacity: 0; }
+    40%  { opacity: 1; }
+}
+@-webkit-keyframes breatheAnimation {
+    0%   { opacity: 1; }
+    20%  { opacity: 0; }
+    40%  { opacity: 1; }
+}
+
+#update {
+    -webkit-animation: breatheAnimation 3s infinite;
+    -moz-animation: breatheAnimation 3s infinite;
+    -o-animation: breatheAnimation 3s infinite;
+    animation: breatheAnimation 3s infinite;
+}

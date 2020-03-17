@@ -85,12 +85,12 @@ function displayInfo(sha, extra) {
         var rateLimitJSON = JSON.parse(rateLimit.responseText);
 
         if (sha == 'master' || Math.round((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 1000) > 300) {
-            document.getElementById(GITHUB_REPO).innerHTML += '<div id="sha"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Home Learning resources can be found below, they are updated once an hour on the hour.<br>'
+            document.getElementById(GITHUB_REPO).innerHTML += '<div id="sha"><strong><a id="update" href="http://www.woacademy.co.uk/wp-content/uploads/2020/03/coronavirus-update-17032020.pdf">Please click here to view our latest update regarding the coronavirus (COVID-19) disease.</a></strong><br><br><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Home Learning resources can be found below, they are updated once an hour on the hour.<br>'
                 + '<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> Current version: ' + sha + ' (l=' + rateLimitJSON.resources.core.remaining + ';r=' + (rateLimitJSON.resources.core.reset - Math.round(+new Date() / 1000)) + ')</div><br>';
 
             fetchHierarchy(sha);
         } else {
-            document.getElementById(GITHUB_REPO).innerHTML += '<div id="shabad"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Resources have recently been synced, please wait another ' + (Math.round((5 - ((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 60000)) * 100) / 100) + ' minutes for them to be displayed below.<br>'
+            document.getElementById(GITHUB_REPO).innerHTML += '<div id="shabad"><strong><a id="update" href="http://www.woacademy.co.uk/wp-content/uploads/2020/03/coronavirus-update-17032020.pdf">Please click here to view our latest update regarding the coronavirus (COVID-19) disease.</a></strong><br><br><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Resources have recently been synced, please wait another ' + (Math.round((5 - ((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 60000)) * 100) / 100) + ' minutes for them to be displayed below.<br>'
                 + '<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> Current version: ' + sha + ' (l=' + rateLimitJSON.resources.core.remaining + ';r=' + (rateLimitJSON.resources.core.reset - Math.round(+new Date() / 1000)) + ')</div><br>';
         }
     }
