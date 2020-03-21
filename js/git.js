@@ -23,9 +23,7 @@ function formatHierarchy(hierarchy, parentdir) {
         var changed = false;
         var anchors = hierarchyElement.getElementsByTagName('a');
         Array.prototype.forEach.call(anchors, function(anchor) {
-            console.log(anchor.href);
             if (/\/$/.test(anchor.href)) {
-                console.log(anchor.innerHTML);
                 var replacement = document.createElement('span');
                 replacement.innerHTML = '<strong>' + anchor.innerHTML + '</strong>';
 
@@ -93,6 +91,10 @@ function displayInfo(sha, extra) {
             document.getElementById(GITHUB_REPO).innerHTML += '<div id="shabad"><strong><a id="update" href="http://www.woacademy.co.uk/wp-content/uploads/2020/03/coronavirus-update-17032020.pdf">Please click here to view our latest update regarding the coronavirus (COVID-19) disease.</a></strong><br><br><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> Resources have recently been synced, please wait another ' + (Math.round((5 - ((+ new Date() - new Date(extra.commit.committer.date).getTime()) / 60000)) * 100) / 100) + ' minutes for them to be displayed below.<br>'
                 + '<i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> Current version: ' + sha + ' (l=' + rateLimitJSON.resources.core.remaining + ';r=' + (rateLimitJSON.resources.core.reset - Math.round(+new Date() / 1000)) + ')</div><br>';
         }
+    }
+    rateLimit.onerror = function() {
+        console.log('reload');
+        location.reload();
     }
 }
 
